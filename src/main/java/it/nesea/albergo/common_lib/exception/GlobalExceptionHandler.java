@@ -112,12 +112,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CustomResponse.error(errors));
     }
 
-    @ExceptionHandler(FeignException.FeignClientException.class)
-    public ResponseEntity<CustomResponse> handleOpenFeignException (FeignException.FeignClientException ex) {
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<CustomResponse> handleOpenFeignException (FeignException ex) {
         log.error("Errore nella comunicazione tra i servizi: " + ex.getMessage());
-        List<String> errors = new ArrayList<>();
-        errors.add(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CustomResponse.error(errors));
+        return ResponseEntity.status(ex.status()).body(CustomResponse.error(List.of("Errore nella comunicazione tra i servizi.")));
     }
 
 }
