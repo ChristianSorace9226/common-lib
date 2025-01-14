@@ -1,5 +1,6 @@
 package it.nesea.albergo.common_lib.exception;
 
+import feign.FeignException;
 import it.nesea.albergo.common_lib.dto.response.CustomResponse;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -109,6 +110,14 @@ public class GlobalExceptionHandler {
         List<String> errors = new ArrayList<>();
         errors.add(ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CustomResponse.error(errors));
+    }
+
+    @ExceptionHandler(FeignException.FeignClientException.class)
+    public ResponseEntity<CustomResponse> handleOpenFeignException (FeignException.FeignClientException ex) {
+        log.error("Errore nella comunicazione tra i servizi: " + ex.getMessage());
+        List<String> errors = new ArrayList<>();
+        errors.add(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CustomResponse.error(errors));
     }
 
 }
