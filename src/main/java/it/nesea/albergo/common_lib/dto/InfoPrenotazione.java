@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +23,6 @@ public class InfoPrenotazione implements Serializable {
     Integer idUtente;
     BigDecimal prezzoTotale;
     Integer idMetodoPagamento;
+    LocalDate checkIn;
 
 }
