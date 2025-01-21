@@ -24,5 +24,6 @@ public class InfoPrenotazione implements Serializable {
     BigDecimal prezzoTotale;
     Integer idMetodoPagamento;
     LocalDate checkIn;
+    Integer idPrenotazione;
 
 }
