@@ -119,7 +119,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ExpiredException.class)
-    public ResponseEntity<CustomResponse> handleOpenFeignException (ExpiredException ex) {
+    public ResponseEntity<CustomResponse> handleExpiredException (ExpiredException ex) {
         log.error(ex.getMessage());
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(CustomResponse.error(List.of("Errore nella comunicazione tra i servizi.")));
     }
