@@ -121,7 +121,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ExpiredException.class)
     public ResponseEntity<CustomResponse> handleExpiredException (ExpiredException ex) {
         log.error(ex.getMessage());
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(CustomResponse.error(List.of("Errore nella comunicazione tra i servizi.")));
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(CustomResponse.error(List.of(ex.getMessage())));
+    }
+
+    @ExceptionHandler(PersistencyConflictException.class)
+    public ResponseEntity<CustomResponse> handlePersistencyConflictException (PersistencyConflictException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(CustomResponse.error(List.of(ex.getMessage())));
     }
 
 }
